@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Intro to the awesome game of football</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Intro to the awesome game of football">
+  <meta name="author" content="Akash Chauhan">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Intro to the awesome game of football</h1>
+    <h2>This is how engineers play football</h2>
+    <p>Akash Chauhan<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Slide 2</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This is an introduction slide to the week 4 assignment of the
+developing data tools course of coursera.</p>
+
+<p>The assignment is to develop a shiny app. The app we will talk about is a guessing
+game set in the middle of a football field.</p>
+
+<p>The user is asked to provide certain inputs using the shiny widgets and based on the 
+input the app calculates the result of the game.</p>
+
+<p>So, let&#39;s look into the details of the game.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Slide 3</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The game statement is as below:</p>
+
+<p>You are standing at mid field with the ball. The goalkeeper is halfway between you and the goalpost. Seeing you with the ball the goalkeeper starts running towards the goalpost at 18 km/h speed.</p>
+
+<p>You have to guess now the speed and angle at which you need to hit the football so that the football reaches the goalpost before the goalkeeper in one go without bouncing. Keep in mind that the football must cross the goalkeeper above the height of the goalkeeper (6ft. 2in.) If it bouces before the goalkeeper or hits him it will be deflected by him.</p>
+
+<p>Depending on your speed and angle input we will tell you whether you scored a goal or the goalkeeper deflected the ball!</p>
+
+<p>We will ignore air resistance and other useless variables. This is a simple projectile motion situation.</p>
+
+<p>Note: The football field is usually 120 yards long (~110 m)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Slide 4</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The user is asked to input the speed of the ball using a slider bar and the angle of the ball from the ground using a numeric input widget.</p>
+
+<p>Based on the two inputs the app calculates whether the ball hit with the mentioned
+speed and angle will be a goal or not based on the criterias mentioned in the 
+problem statement.</p>
+
+<p>Condition 1 : if the goalkeeper reaches the goalpost before the ball - it will never be a goal as the ball is too slow to reach there.</p>
+
+<p>Condition 2 : if the ball is fast enough to reach the goalpost before the goalkeeper, the app checks if it goes above his head, bounces before him or hits him. if it bounces before him or hits him then he deflects it - no goal!</p>
+
+<p>Condition 3 : if the ball goes above his head then its a goal!</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Slide 5</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The code used to check these 3 conditions are shown below:</p>
+
+<p>Condition 1 :</p>
+
+<pre><code>if((input$slider1*1000/3600)*cos(input$num*pi/180) &lt; 10){
+          &quot;You are too slow! The goalkeeper has reached the goalpost before
+                     the ball and has stopped the goal!!&quot;}
+</code></pre>
+
+<p>Condition 2 :</p>
+
+<pre><code>height &lt;- function(v, theta)
+  (v*sin(theta)*27.5/((v*cos(theta))-5)) -(9.8*((27.5/((v*cos(theta))-5))^2)*0.5) 
+
+if (height(input$slider1*1000/3600, input$num*pi/180) &lt;= 1.8796){
+          &quot;The ball has been deflected by the goalkeeper. NO GOAL!&quot;}
+</code></pre>
+
+<p>Condition 3 : </p>
+
+<p>if the above two conditions are not met then it&#39;s a goal!</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Slide 2'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Slide 3'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Slide 4'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Slide 5'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
